@@ -1,0 +1,24 @@
+<div class="row py-4 px-4">
+  <div class="col-md-12">
+<div class="card">
+<div class="card-header">
+  <button type="button" class="btn btn-outline-success  btn-sm" (click)="xlsBtnOnClick()">
+    Export To Excel
+  </button>
+  <button type="button" class="btn btn-outline-success  btn-sm" (click)="pdfBtnOnClick()">
+    Export To Pdf
+  </button>
+</div>
+<div class="card-body">
+  <div class="table-responsive">
+    <jqxGrid [theme]="'dark'"
+    #myGrid [width]="'100%'" [source]="dataAdapter" [columns]="columns" [pageable]="true" [filterable]="true"
+    [showfilterrow]="true" [columnsresize]="true" [sortable]="true" [autoshowloadelement]="true"
+    [autoshowfiltericon]="true" [ready]="ready" [updatefilterconditions]="updatefilterconditions"
+    [groupable]="true" [groups]="['id']" [showgroupsheader]="true" [selectionmode]="'multiplecellsadvanced'" >
+    </jqxGrid>
+  </div>
+</div>
+</div>
+</div>
+</div>

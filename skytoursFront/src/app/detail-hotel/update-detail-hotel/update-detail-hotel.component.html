@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="card-body">
+    <div class="table-responsive"  >
+<h6>Modifier detail repartition</h6>
+<jqxDataTable #RepDataTable  (onRowEndEdit)="onRowEndEdit($event)"
+[width]="'99%'" [source]="dataAdapter" [columns]="columns"
+[altRows]="true" [editable]="true" [showToolbar]="true" [toolbarHeight]="35"
+[renderToolbar]="renderToolbar">
+</jqxDataTable>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="card">
+  <div class="card-body">
+    <div class="table-responsive"  >
+<h6>Modifier detail logement</h6>
+<jqxDataTable #LogDataTable  (onRowEndEdit)="onLogRowEndEdit($event)"
+[width]="'99%'" [source]="logdataAdapter" [columns]="logcolumns"
+[altRows]="true" [editable]="true" [showToolbar]="true" [toolbarHeight]="35"
+[renderToolbar]="logrenderToolbar">
+</jqxDataTable>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="card">
+  <div class="card-body">
+    <div class="table-responsive"  >
+<h6>Modifier detail supplement</h6>
+<jqxDataTable #SuppDataTable  (onRowEndEdit)="onSuppRowEndEdit($event)"
+[width]="'99%'" [source]="supdataAdapter" [columns]="suppcolumns"
+[altRows]="true" [editable]="true" [showToolbar]="true" [toolbarHeight]="35"
+[renderToolbar]="supprenderToolbar">
+</jqxDataTable>
+    </div>
+  </div>
+</div>

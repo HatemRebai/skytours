@@ -1,0 +1,24 @@
+#navbar {
+  background: linear-gradient(#0C2646 0% , #204065 , 60% , #2a5788 100%);
+}
+.logo {
+  height: 140px;
+  background-color: #0C2646;
+}
+.img {
+  box-shadow: inset 0 0 1em rgb(63, 213, 240), 0 0 2em rgb(135, 141, 186);
+}
+#dropDownDetail {
+  margin: 10px 15px 0;
+  border-radius: 30px;
+  color: grey;
+  display: block;
+  text-decoration: none;
+  position: relative;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-size: 0.7142em;
+  padding: 10px 8px;
+  line-height: 1.625rem;
+}
+

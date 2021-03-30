@@ -1,0 +1,122 @@
+<div class="main-content">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Ajouter un Utilisateur</h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="userForm" novalidate>
+            <div class="row">
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label>Nom</label>
+                  <input type="text" class="form-control"  placeholder="ex:Ahmed" formControlName="nom">
+                </div>
+              </div>
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label>Prenom</label>
+                  <input type="text" class="form-control" placeholder="ex:Ben Salah" formControlName="prenom">
+                </div>
+              </div>
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label for="email">Username</label>
+                  <input  type="text" class="form-control" placeholder="username" formControlName="username">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label>Email</label>
+                  <input name="email" id="email" type="email" class="form-control" placeholder="example@domaine.com" formControlName="email">
+                </div>
+              </div>
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label>Password</label>
+                  <input type="password" class="form-control" placeholder="pasword" formControlName="password">
+                </div>
+              </div>
+              <div class="col-md-1 px-5 py-3 offset-1">
+                <div class="form-group">
+                  <button type="button" class="btn btn-success btn-sm " (click)="addUser()">valider</button>
+                </div>
+              </div>
+              <div class="col-md-1 px-5 py-3">
+                <div class="form-group">
+                  <button type="button" class="btn btn-danger btn-sm " >Annuler</button>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class= "col-12">
+                <div *ngIf="errMsgs.nom.length" class="alert alert-danger">
+                  <ul>
+                      <li *ngFor="let error of errMsgs.nom">
+                          {{error}}
+                      </li>
+                  </ul>
+              </div>
+              <div *ngIf="errMsgs.prenom.length" class="alert alert-danger">
+                <ul>
+                    <li *ngFor="let error of errMsgs.prenom">
+                        {{error}}
+                    </li>
+                </ul>
+             </div>
+            <div *ngIf="errMsgs.username.length" class="alert alert-danger">
+              <ul>
+                  <li *ngFor="let error of errMsgs.username">
+                      {{error}}
+                  </li>
+              </ul>
+           </div>
+          <div *ngIf="errMsgs.email.length" class="alert alert-danger">
+            <ul>
+                <li *ngFor="let error of errMsgs.email">
+                    {{error}}
+                </li>
+            </ul>
+          </div>
+          <div *ngIf="errMsgs.password.length" class="alert alert-danger">
+            <ul>
+                <li *ngFor="let error of errMsgs.password">
+                    {{error}}
+                </li>
+            </ul>
+         </div>
+
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-12">
+    <div class="card">
+   <!--   <div class="card-header">
+        <button type="button" class="btn btn-success btn-sm " (onClick)="buttonClicked()" >Export To Excel</button>
+      </div> -->
+      <div class="card-body">
+        <h6 class="title">Liste des Utilisateurs</h6>
+
+        <div class="table-responsive">
+          <jqxGrid [theme]="'dark'"
+          #myGrid [width]="'99%'" [source]="dataAdapter" [columns]="columns" [pageable]="true" [filterable]="true"
+          [showfilterrow]="true" [columnsresize]="true" [sortable]="true" [autoshowloadelement]="true"
+          [autoshowfiltericon]="true" [ready]="ready" [updatefilterconditions]="updatefilterconditions"
+          (onCelldoubleclick)="onCelldoubleclick($event)"(onCellvaluechanged)="onCellvaluechanged($event)"
+          [groupable]="true" [groups]="['Title']" [showgroupsheader]="true">
+          </jqxGrid>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    </div>

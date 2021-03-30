@@ -1,0 +1,274 @@
+<section id="tabs" class="project-tab">
+   <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <nav>
+          <div class="nav nav-tabs  nav-fill " id="nav-tab" role="tablist">
+            <a class="nav-item nav-link " id="nav-addres-tab"
+              data-toggle="tab"
+              href="#nav-addres"
+              role="tab"
+              aria-controls="nav-home"
+              aria-selected="true"
+             >Ajouter Reservation</a>
+            <a class="nav-item nav-link active" id="nav-listeres-tab"
+              data-toggle="tab"
+              href="#nav-listeres"
+              role="tab"
+              aria-controls="nav-listeres"
+              aria-selected="false"
+              >Listes de  Reservations</a>
+            <a class="nav-item nav-link" id="nav-contact-tab"
+              data-toggle="tab"
+              href="#nav-contact"
+              role="tab"
+              aria-controls="nav-contact"
+              aria-selected="false"
+              >Modifier Reservation</a>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade " id="nav-addres" role="tabpanel" aria-labelledby="nav-home-tab" >
+          <div class="px-5 container-fluid">
+            <div class="row">
+         <!---    <div class="offset-3 col-md-5 py-2">
+                <h3>Ajouter une Reservation</h3>
+              </div> -->
+            </div>
+            <hr class="rounded">
+            <form [formGroup]="reservationForm">
+              <div class="row">
+                <div class="col-md-6 py-2">
+                  <div class="form-group">
+                    <label>Code Client </label>&nbsp;
+                    <select id='idClient' class="border-info rounded" formControlName="client">
+                      <option [disabled] [selected]>selectionner le client: </option>
+                      <option [selected]></option>
+                      <option *ngFor="let client of client" [value]='[client.nom_prenom]' >{{client.id}}&nbsp;:&nbsp;{{client.nom_prenom}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Code Hotel </label>&nbsp;
+                    <select  #idHotel class="border-info rounded" formControlName="hotel" (change)='onOptionsSelected($event)'
+                      (change)='isSelected(idHotel.value)'>
+                      <option [disabled]>selectionner l'Hotel</option>
+                      <option [selected]></option>
+                      <option *ngFor="let hotel of hotel" [value]='[hotel.id]'>{{hotel.id}}&nbsp;:&nbsp;{{hotel.raison_sociale}}</option>
+                    </select>
+                  </div>
+                  <hr class="rounded">
+                    <div class="row">
+                      <div class="col-sm-12 mr-5">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <label>Du :&nbsp;</label>
+                            <input type="date" class="form-control-sm border-info rounded" placeholder="dd-mm-yyyy" id='dateA'
+                              formControlName="date_arrivee" >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <label>Au : &nbsp;</label>
+                            <input type="date" class="form-control-sm border-info rounded" placeholder="dd-mm-yyyy id='dateD"
+                              formControlName="date_depart"  (change)='onPeriodeSelect($event)'>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <div class="row">
+
+                          <div #periode class="col-12">
+                          </div>
+                        <div class="col-12">
+                          <label> Adulte (s) : &nbsp; {{NbrAdulte}}</label>
+                          <label>&nbsp; Enfant (s) : &nbsp; {{NbrEnfant}}</label>
+                          <label> &nbsp; Bebe (s) : &nbsp; {{Bebe}}</label>
+                        </div>
+                        </div>
+
+                      </div>
+                    </div>
+                </div>
+                <div class="vl"></div>
+                <div class="col-md-5 py-2">
+                  <div class="form-group">
+                    <label>Chambre(s) </label>&nbsp;
+                    <select class="border-info rounded" id='nbreCH' (change)='onOptionsSelected($event)'>
+                      <option [selected]>0</option>
+                      <option *ngFor="let ch of nbreChambre " [value]='[ch.value]'>{{ch.value}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group" *ngFor="let element of ArrayChambre">
+                    <label>Chambre&nbsp;{{element}}&nbsp;</label>
+                    <div class="form-group">
+                      <select class="border-info rounded" id='adulte{{element}}' (change)='onPersonneSelected($event)'
+                        formControlName='adulte'>
+                        <label>Chambre</label>
+                        <option [defaultSelected] [value]='0'>adulte(s)&nbsp; 0</option>
+                        <option *ngFor="let adulte of adultes " [value]='[adulte.value]' >{{adulte.value}}</option>
+                      </select>&nbsp;
+                      <select class="border-info rounded" id='enfant{{element}}' (change)='onPersonneSelected($event)'
+                      (change)='onEnfantSelected($event , element)' formControlName="enfant">
+                        <option [value]='0'>enfant(s)&nbsp; 0</option>
+                        <option *ngFor="let enfant of enfants" [value]='[enfant.value]' >{{enfant.value}}</option>
+                      </select>
+                    </div>
+                    <div *ngFor="let Nbr of EnfantArr[element-1]; let i=index">
+                     <input (input)="DateNais=$event.target.value" type='date' class="form-control-sm border-info rounded"
+                      placeholder="yyyy-mm-dd"  id='dateNais{{i}}' (change)='ifAgeBebeVerif($event , i)'
+                      (change)='ifAgeEnfantVerif($event)' (change)='ifAgeAdulteVerif($event)'>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr class="rounded">
+              <div class="row">
+                <div class="col-md-12" *ngFor="let typologie of typArray ; let i=index"  >
+                  <ul>
+                    <h6> Chambre {{ArrayChambre[i]}} </h6>
+                    <div>
+                      <li>{{typologie}}</li>
+                   </div>
+                    <div class="row">
+                      <div class=" col-md-3">
+                        <div>
+                          <label>logement:</label>
+                        </div>
+                        <select class="border-info rounded"
+                        (change)='onLogementSelectChange($event , i)'>
+                        <option>logement(s)&nbsp;</option>
+                        <option >&nbsp;</option>
+                        <option *ngFor="let logement of logArray ; let i=index"
+                         [value]='[logement[3]]'  >{{logement[1]}}</option>
+                      </select>
+                      <div>
+                        <label> logement :&nbsp; </label>
+                        <label> {{myLogementArr[i]}}</label> &nbsp;  =>
+                        <label> prixA logement :&nbsp; </label>
+                        <label> {{myPrixALogementArr[i]}}</label>
+                        <label> prixV logement :&nbsp; </label>
+                        <label> {{myPrixVLogementArr[i]}}</label>
+                      </div>
+                      </div>
+                      <div class="col-md-3 ">
+                        <label>specifications</label>
+                        <select class="border-info rounded" formControlName='specification'
+                        (change)='onSpecificationSelectChange($event ,i)'>
+                          <option>specification(s)&nbsp;</option>
+                          <option >&nbsp;</option>
+                          <option *ngFor="let specification of specArray ; let i=index"
+                           >{{specification[1]}}</option>
+                        </select>
+                        <div>
+                          <label> Spcification du  Chambre :&nbsp;</label>
+                          <label> {{mySpecificationArr[i]}}</label>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <label>supplements:</label>
+                        <select class="border-info rounded"
+                        (change)='onSupplementSelectChange($event , i)'>
+                          <option>supplement(s)&nbsp;</option>
+                          <option *ngFor="let supplement of suppArray ; let i=index"
+                           [value]='[supplement[2]]'>{{supplement[1]}}</option>
+                        </select>
+                        <div>
+                          <label> supplement :&nbsp; </label>
+                          <label> {{mySupplementArr[i]}}</label> &nbsp; =>
+                          <label> prix supplement :&nbsp; </label>
+                          <label> {{myPrixSupplementArr[i]}}</label>
+                        </div>
+                      </div>
+                    </div>
+              </ul>
+              </div>
+              </div>
+              <hr class="rounded">
+              <div class="row">
+                <div class="col-md-4">
+                  <table class="table table-bordered ">
+                    <td class="table-primary"> <h4>Observation</h4></td>
+                    <td class="table-info">
+                     <textarea (input)="observations=$event.target.value" class="text-center" name="" id="" cols="50" rows="10" formControlName='observations'></textarea>
+                   </td>
+                </table>
+                </div>
+                <div class="offset-4 col-md-2">
+                  <div class="row">
+
+                  </div>
+
+                 <!--- <div class="row">
+                    <div class="col-md-1">
+                      <div class="form-group">
+                        <button [disabled]="! isValid" type="button" class="btn btn-outline-info " >Apercu</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-1">
+                      <div class="form-group">
+                        <button [disabled]="! isValid" type="button" class="btn btn-outline-info " >imprimer</button>
+                      </div>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-1">
+                  <div class="form-group">
+                    <button [disabled]="! isValid" type="button" class="btn btn-outline-info " (click)='addReservation()'>valider</button>
+                  </div>
+                </div>
+             <div [hidden]='! isSubmitted' class="container-fluid" >
+              <div class="row ">
+                <div class="col-md-12" >
+                <app-printer></app-printer>
+                </div>
+              </div>
+            </div>
+              </div>
+            </form>
+
+            </div>
+          </div>
+          <div class="tab-pane fade show active"  id="nav-listeres" role="tabpanel" aria-labelledby="nav-listeres-tab">
+            <div class="row py-4 px-4">
+              <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <button type="button" class="btn btn-outline-success  btn-sm" (click)="xlsBtnOnClick()">
+                Export To Excel
+              </button>
+              <button type="button" class="btn btn-outline-success  btn-sm" (click)="pdfBtnOnClick()">
+                Export To Pdf
+              </button>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <jqxGrid [theme]="'dark'"
+                #myGrid [width]="'100%'" [source]="dataAdapter" [columns]="columns" [pageable]="true" [filterable]="true"
+                [showfilterrow]="true" [columnsresize]="true" [sortable]="true" [autoshowloadelement]="true"
+                [autoshowfiltericon]="true" [ready]="ready" [updatefilterconditions]="updatefilterconditions"
+                [groupable]="true" [groups]="['id']" [showgroupsheader]="true" [selectionmode]="'multiplecellsadvanced'" >
+                </jqxGrid>
+              </div>
+            </div>
+          </div>
+          </div>
+          </div>
+        </div>
+        <div  class="tab-pane fade"  id="nav-contact"
+          role="tabpanel"
+          aria-labelledby="nav-contact-tab">
+        </div>
+        </div>
+        </div>
+    </div>
+  </div>
+
+

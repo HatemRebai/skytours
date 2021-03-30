@@ -1,0 +1,52 @@
+<div class="main-content">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Ajouter un Logement</h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="logementForm" novalidate>
+            <div class="row">
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label>logement</label>
+                  <input type="text" class="form-control"  placeholder="type de logement" formControlName="designation">
+                </div>
+              </div>
+              <div class="col-md-1 px-5 py-3 offset-1">
+                <div class="form-group">
+                  <button type="button" class="btn btn-success btn-sm " (click)="adddata()">valider</button>
+                </div>
+              </div>
+              <div class="col-md-1 px-5 py-3">
+                <div class="form-group">
+                  <button type="button" class="btn btn-danger btn-sm " >Annuler</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <jqxGrid [theme]="'dark'"
+          #myGrid [width]="'99%'" [source]="dataAdapter" [columns]="columns" [pageable]="true" [filterable]="true"
+          [showfilterrow]="true" [columnsresize]="true" [sortable]="true" [autoshowloadelement]="true"
+          [autoshowfiltericon]="true" [ready]="ready" [updatefilterconditions]="updatefilterconditions"
+          (onCelldoubleclick)="onCelldoubleclick($event)"(onCellvaluechanged)="onCellvaluechanged($event)"
+          [groupable]="true" [groups]="['Title']" [showgroupsheader]="true">
+          </jqxGrid>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    </div>
+

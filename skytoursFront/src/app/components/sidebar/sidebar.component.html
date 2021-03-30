@@ -1,0 +1,46 @@
+
+<div class="logo" >
+  <img class='img py-4' src="../../../assets/img/sky tour.png"/>
+</div>
+<div class="sidebar-wrapper" id='navbar'>
+    <ul class="nav">
+        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+            <a [routerLink]="[menuItem.path]">
+                <i class="now-ui-icons {{menuItem.icon}}"></i>
+                <p>{{menuItem.title}}</p>
+            </a>
+        </li>
+        <li id=dropDownDetail class="btn" data-toggle="collapse" data-target="#detail" >
+                <i class="now-ui-icons design_bullet-list-67"></i>
+                <p class="text-default ">Detail Hotel</p>
+        </li>
+        <div  id="detail" class="collapse" >
+          <li>
+          <a [routerLink]="['/adminLayout/detailhotel']"   >
+            <i class="now-ui-icons ui-1_simple-add"></i>
+            <p>Ajouter Detail Hotel</p>
+          </a>
+          <a [routerLink]="['/adminLayout/logement']"   >
+            <i class="now-ui-icons arrows-1_minimal-right"></i>
+            <p>Logement</p>
+          </a>
+          <a [routerLink]="['/adminLayout/specification']"   >
+            <i class="now-ui-icons arrows-1_minimal-right"></i>
+            <p>Specification</p>
+          </a>
+          <a [routerLink]="['/adminLayout/supplement']"   >
+            <i class="now-ui-icons arrows-1_minimal-right"></i>
+            <p>Supplement</p>
+          </a>
+          <a [routerLink]="['/adminLayout/typologie']"   >
+            <i class="now-ui-icons arrows-1_minimal-right"></i>
+            <p>Typologie</p>
+          </a>
+          <a [routerLink]="['/adminLayout/repartition']"   >
+            <i class="now-ui-icons arrows-1_minimal-right"></i>
+            <p>Repartition</p>
+          </a>
+          </li>
+      </div>
+    </ul>
+</div>

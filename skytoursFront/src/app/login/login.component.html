@@ -1,0 +1,23 @@
+<div class="bg-image"></div>
+  <div class="container-fluid">
+    <div class="bg-form">
+    <div class="row py-5">
+      <div  class="offset-4 col-md-4 shadow-lg p-3 mb-5 rounded" id='fromcss' >
+      <div class="well">
+        <form #f="ngForm" (ngSubmit)="verification(f.value)">
+          <h2 class="form-signin-heading text-center">Connexion</h2>
+          <label>Nom d'Utilisateur</label>
+          <input (input)="username=$event.target.value" type="text" class="form-control shadow p-4 mb-3" placeholder="Votre Login" name="username" ngModel>
+          <p></p>
+          <label>Mot de passe</label>
+          <input (input)="password=$event.target.value" type="password" class="form-control shadow p-4 mb-5" placeholder="Password" name="password" ngModel>
+          <button   class="btn  btn-lg  btn-block  p-2 mb-3 logbtn" type="submit"> Se connceter </button>
+        </form>
+      </div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+

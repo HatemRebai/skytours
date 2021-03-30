@@ -1,0 +1,163 @@
+<div class="main-content">
+  <div class="row">
+    <div class="col-8">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Ajouter Agence</h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="agenceForm" >
+            <div class="row">
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label>Raison Sociale</label>
+                  <input type="text" class="form-control"  placeholder="raison sociale" formControlName="raison_sociale">
+                </div>
+              </div>
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label>Matricule Fiscale</label>
+                  <input type="text" class="form-control" placeholder="Matricule fiscale" formControlName="matricule_fiscale">
+                </div>
+              </div>
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label>Adresse</label>
+                  <input type="text" class="form-control" placeholder="adresse" formControlName="adresse">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label for="email">Email address</label>
+                  <input name="email" id="email" type="email" class="form-control" placeholder="Email" formControlName="email">
+                </div>
+              </div>
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label>telephone</label>
+                  <input type="number" class="form-control" placeholder="votre numero de telephone" formControlName="tel">
+                </div>
+              </div>
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label>Responsable</label>
+                  <input type="text" class="form-control" placeholder="le nom du responsable" formControlName="responsable">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label>Telephone du Responsable</label>
+                  <input type="text" class="form-control" placeholder="le telephone du responsable" formControlName="tel_responsable">
+                </div>
+              </div>
+              <div class="col-md-1 px-5 py-3">
+                <div class="form-group">
+                  <button type="button" class="btn btn-success btn-sm " (click)="addAgence()" >valider</button>
+                </div>
+              </div>
+              <div class="col-md-1 px-5 py-3">
+                <div class="form-group">
+                  <button type="button" class="btn btn-danger btn-sm " >Annuler</button>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class= "col-12">
+                <div *ngIf="errMsgs.raison_sociale.length" class="alert alert-danger">
+                  <ul>
+                      <li *ngFor="let error of errMsgs.raison_sociale">
+                          {{error}}
+                      </li>
+                  </ul>
+              </div>
+              <div *ngIf="errMsgs.matricule_fiscale.length" class="alert alert-danger">
+                <ul>
+                    <li *ngFor="let error of errMsgs.matricule_fiscale">
+                        {{error}}
+                    </li>
+                </ul>
+             </div>
+             <div *ngIf="errMsgs.adresse.length" class="alert alert-danger">
+              <ul>
+                  <li *ngFor="let error of errMsgs.adresse">
+                      {{error}}
+                  </li>
+              </ul>
+           </div>
+            <div *ngIf="errMsgs.tel.length" class="alert alert-danger">
+              <ul>
+                  <li *ngFor="let error of errMsgs.tel">
+                      {{error}}
+                  </li>
+              </ul>
+           </div>
+          <div *ngIf="errMsgs.email.length" class="alert alert-danger">
+            <ul>
+                <li *ngFor="let error of errMsgs.email">
+                    {{error}}
+                </li>
+            </ul>
+          </div>
+          <div *ngIf="errMsgs.responsable.length" class="alert alert-danger">
+            <ul>
+                <li *ngFor="let error of errMsgs.responsable">
+                    {{error}}
+                </li>
+            </ul>
+         </div>
+         <div *ngIf="errMsgs.tel_responsable.length" class="alert alert-danger">
+          <ul>
+              <li *ngFor="let error of errMsgs.telres">
+                  {{error}}
+              </li>
+          </ul>
+       </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4" *ngFor="let item of agence">
+      <div class="card card-user">
+        <div class="image">
+          <img src="../assets/img/bg5.jpg" alt="...">
+        </div>
+        <div class="card-body">
+          <div class="author">
+            <a href="#">
+              <img class="avatar border-gray" src="../assets/img/mike.jpg" alt="...">
+            </a>
+            <h3 class="description">
+              {{item.raison_sociale}}
+            </h3>
+          </div>
+          <p class="description text-center">
+            {{item.matricule_fiscale}}
+            <br>{{item.email}}
+            <br>{{item.responsable}}
+            <br> {{item.tel_responsable}}</p>
+
+        </div>
+        <hr>
+        <div class="button-container">
+          <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
+            <i class="fab fa-facebook-f"></i>
+          </button>
+          <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
+            <i class="fab fa-twitter"></i>
+          </button>
+          <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
+            <i class="fab fa-google-plus-g"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+      </div>
+      <hr>
+
+    </div>

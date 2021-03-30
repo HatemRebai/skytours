@@ -1,0 +1,436 @@
+<section id="tabs" class="project-tab">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <nav>
+          <div class="nav nav-tabs  nav-fill " id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab"
+              data-toggle="tab"
+              href="#nav-home"
+              role="tab"
+              aria-controls="nav-home"
+              aria-selected="true"
+              >Ajouter detail hotel</a>
+            <a class="nav-item nav-link" id="nav-profile-tab"
+              data-toggle="tab"
+              href="#nav-profile"
+              role="tab"
+              aria-controls="nav-profile"
+              aria-selected="false"
+              >Modifier detail hotel</a>
+            <a class="nav-item nav-link" id="nav-contact-tab"
+              data-toggle="tab"
+              href="#nav-contact"
+              role="tab"
+              aria-controls="nav-contact"
+              aria-selected="false"
+              >Project Tab 3</a>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active"
+            id="nav-home" role="tabpanel"
+            aria-labelledby="nav-home-tab">
+            <form [formGroup]="detailForm">
+              <div class="row py-md-4">
+                <div class="offset-md-1 col-md-4">
+                  <div class="form-group">
+                    <h6>Code Hotel</h6>
+                    <select id="mySelect" class="border-gray rounded" (change)='selectedHId($event)'
+                      formControlName="idhotel" >
+                      <option disabled>selectionner l'Hotel</option>
+                      <option *ngFor="let hotel of hotel" [value]="hotel.id">
+                        {{ hotel.id }}&nbsp; : &nbsp; {{ hotel.raison_sociale }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="ligne_verticale col-1"></div>
+                <!--<div class="col-md-4">
+                  <h6>convention</h6>
+                  <div class="col-12" id="detailDiv">
+                    <div class="custom-control custom-radio custom-control-inline"
+                         *ngFor="let convention of convention">
+                      <input type="radio" class="custom-control-input"  id="defaultInline1"
+                             value='{{convention.id}}'  name="inlineDefaultRadiosExample"/>
+                      <label class="custom-control-label" for="defaultInline1">{{convention.value}}</label>
+                    </div>
+                  </div>
+                </div> -->
+              </div>
+            </form>
+            <hr/>
+            <div class="row">
+              <div class="offset-md-1 col-md-4">
+                <form [formGroup]="detailSpecificationForm">
+                  <h6>specifications</h6>
+                  <div class="col-12"  id="detailDiv"
+                    *ngFor="let specification of specification"
+                    formArrayName="specificationFormArr">
+                    <label>
+                      <input type="checkbox"[value]="specification.id"
+                        (change)="onSpecificationCheckboxChange($event,specification.id )"/>
+                      {{ specification.designation }}
+                    </label>
+                  </div>
+                </form>
+              </div>
+              <div class="ligne_verticale col-1"></div>
+              <div class=" col-md-4">
+                <form [formGroup]="detailTypologieForm">
+                  <h6>typologies du chambres</h6>
+                  <div class="col-12" id="detailDiv"
+                    *ngFor="let typologie of typologie"
+                    formArrayName="typologieFormArr">
+                    <label>
+                      <input type="checkbox" [value]="typologie.id"
+                        (change)="onTypologieCheckboxChange($event, typologie.id)"/>
+                      {{ typologie.designation }}
+                    </label>
+                  </div>
+                </form>
+              </div>
+              <div class="ligne_verticale col-md-1"></div>
+              <!--  <div class="col-md-3">
+                <form [formGroup]="detailSupplementForm">
+                  <h6>supplements:</h6>
+                  <div class="col-12" id="detailDiv"
+                    *ngFor="let supplement of supplement"
+                    formArrayName="supplementFormArr">
+                    <label>
+                      <input
+                        type="checkbox"
+                        [value]="supplement.id"
+                        (change)="onSupplementCheckboxChange($event, supplement.id)"/>
+                      {{ supplement.designation }}
+                    </label>
+                  </div>
+                </form>
+              </div>-->
+            </div>
+            <div class="row py-md-2 py-sm-2">
+              <div class="offset-md-8">
+                <div class="form-group">
+                  <button
+                    type="button"
+                    class="btn btn-success btn-sm"
+                    (click)="addDetails()">
+                    valider
+                  </button>
+                </div>
+              </div>
+              <div class="col-md-1">
+                <div class="form-group">
+                  <button type="button" class="btn btn-danger btn-sm">
+                    Annuler
+                  </button>
+                </div>
+              </div>
+            </div>
+            <hr/>
+            <div class="row">
+             <!--<div class="offset-md-1 col-md-4">
+                <form [formGroup]="detailLogementForm">
+                  <h6>Logement</h6>
+                  <jqxDataTable
+                    #LogDataTable [width]="'99%'"
+                    (onRowEndEdit)="onLogRowEndEdit($event)"
+                    [source]="logdataAdapter" [columns]="logcolumns"
+                    [altRows]="true"  [editable]="true"
+                    [showToolbar]="true" [toolbarHeight]="35"
+                    [renderToolbar]="logrenderToolbar">
+                  </jqxDataTable>
+                </form>
+              </div>-->
+              <div class="col-md-6">
+                <form [formGroup]="detailSupplementForm">
+                  <h6>Supplements</h6>
+                  <jqxDataTable
+                    #SuppDataTable [width]="'99%'"
+                    (onRowEndEdit)="onSuppRowEndEdit($event)"
+                    [source]="suppdataAdapter" [columns]="suppcolumns"
+                    [altRows]="true"  [editable]="true"
+                    [showToolbar]="true" [toolbarHeight]="35"
+                    [renderToolbar]="supprenderToolbar">
+                  </jqxDataTable>
+                </form>
+              </div>
+
+            </div>
+            <hr/>
+            <form [formGroup]="detailRepartitionForm">
+              <!-- <div class="card">
+                            <div class="card-body">
+                              <div class="table-responsive"  >
+                              </div>
+                            </div>
+                          </div> -->
+              <h6>repartitions</h6>
+              <jqxDataTable
+                #RepDataTable  [width]="'99%'"
+                (onRowEndEdit)="onRowEndEdit($event)"
+                [source]="dataAdapter" [columns]="columns"
+                [altRows]="true" [editable]="true"
+                [showToolbar]="true" [toolbarHeight]="35"
+                [renderToolbar]="renderToolbar">
+              </jqxDataTable>
+            </form>
+            <hr>
+            <div class="row px-2">
+              <div class="col-md-5">
+                <h6 >Nombre de duree contrat</h6>
+              <select id='nbreP' (change)='onNbrePeriodeSelected($event)'>
+                <option *ngFor="let periode of periodes" [value]="periode.value">{{periode.value}}</option>
+              </select>
+              </div>
+              <div class=" offset-3 col-md-4">
+                <h6>convention</h6>
+                <div class="col-12" id="detailDiv">
+                  <div>
+                    <input type="radio" name="convention" id="remise"
+                    (click)='onSelectRemise(check_box_type.remise)' [checked]=' currentlyChecked === check_box_type.remise'>
+                <label  >Remise</label>
+                    <input type="radio" name="convention" id="marge" [checked]='currentlyChecked === check_box_type.marge'
+                     (click)='onSelectMarge(check_box_type.marge)'>
+                 <label>Marge</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="row py -2" >
+              <div class="col-md-8 table-responsive-sm">
+              <table class="table table-bordered ">
+
+              <tbody class="table-info table-responsive-sm" >
+                <tr>
+                  <th>Logement</th>
+                  <td>
+                <table>
+                <thead class="table-primary">
+                  <th>ID</th>
+                  <th>Designation</th>
+                  <th>Definir le prix convenable a chaque periode du Contrat</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let logement of logement; let l=index">
+                  <td class="table-primary text-center">{{logement.id}}</td>
+                  <td class="table-primary text-center">{{logement.designation}}</td>
+                  <td>
+                  <div class="col-md-8">
+                  <table class="table table-bordered table-responsive-sm">
+                   <thead class="table-primary">
+                     <td> Du</td>
+                     <td> Au</td>
+                     <td [hidden]='!isMarge'> Prix A </td>
+                     <td [hidden]='!isMarge'> Pourcentage Marge </td>
+                     <td [hidden]='!isMarge'> Prix V </td>
+                     <td [hidden]='!isRemise'> Prix V </td>
+                     <td [hidden]='!isRemise'> Pourcentage Remise </td>
+                     <td [hidden]='!isRemise'> Prix </td>
+                     <td>Action</td>
+                   </thead>
+                   <tbody  *ngFor="let item of periodeArray ; let i=index">
+                    <td>
+                      <input (input)="DateD=$event.target.value" type='date' class="form-control-sm border-info rounded" placeholder="yyyy-mm-dd"  id='Du'>
+                   </td>
+                   <td>
+                       <input (input)="DateF=$event.target.value" type='date' class="form-control-sm border-info rounded" placeholder="yyyy-mm-dd"  id='Au'>
+                   </td>
+                   <td [hidden]='!isMarge'>
+                       <input (input)="prixA=$event.target.value" type="text" name="" id={{logement.id}}{{i}} placeholder="PrixA">
+                   </td>
+                   <td [hidden]='!isMarge'>
+                    <input (input)="tauxMarge=$event.target.value" type="text" name="" id={{logement.id}}{{i}} placeholder="PourcentageM">
+                  </td>
+                  <td [hidden]='!isMarge'>
+                    <Label>{{arrayPrixV[l+i]}}</Label>
+                   </td>
+                   <td [hidden]='!isRemise'>
+                    <input (input)="prixV=$event.target.value" type="text" name="" id={{logement.id}}{{i}} placeholder="PrixV">
+                   </td>
+                   <td [hidden]='!isRemise'>
+                    <input (input)="tauxRemise=$event.target.value" type="text" name="" id={{logement.id}}{{i}} placeholder="PourcentageR">
+                   </td>
+                   <td [hidden]='!isRemise'>
+                    <Label >{{arrayPrixA[l +i]}}</Label>
+                   </td>
+                   <td>
+                    <button type="button" class="btn btn-sm btn-success" (click)='onSelect(logement , i)'>
+                      <span class="btn-label"></span>Ajouter</button>
+                   </td>
+                   </tbody>
+                 </table>
+                 </div>
+                 </td>
+                </tr>
+                </tbody>
+                </table>
+                  </td>
+                </tr>
+            <!---    <tr>
+                  <th>Supplement</th>
+                  <td>
+                  <table>
+                  <thead class="table-primary">
+                  <th>ID</th>
+                  <th>Designation</th>
+                  <th>Definir le prix convenable a chaque periode du Contrat</th>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let supplement of supplement">
+                  <td class="table-primary text-center">{{supplement.id}}</td>
+                  <td class="table-primary text-center">{{supplement.designation}}</td>
+                  <td>
+                  <div class="col-md-8">
+                  <table class="table table-bordered ">
+                   <thead class="table-primary">
+                     <td> Du</td>
+                     <td> Au</td>
+                     <td [hidden]='!isMarge'> Prix A </td>
+                     <td [hidden]='!isMarge'> Pourcentage Marge </td>
+                     <td [hidden]='!isMarge'> Prix </td>
+                     <td [hidden]='!isRemise'> Prix V </td>
+                     <td [hidden]='!isRemise'> Pourcentage Remise </td>
+                     <td [hidden]='!isRemise'> Prix </td>
+                     <td>Action</td>
+                   </thead>
+                   <tbody  *ngFor="let item of periodeArray ; let i=index">
+                   <td>
+                      <input (input)="DateD=$event.target.value" type='date' class="form-control-sm border-info rounded" placeholder="yyyy-mm-dd"  id='Du'>
+                   </td>
+                   <td>
+                       <input (input)="DateF=$event.target.value" type='date' class="form-control-sm border-info rounded" placeholder="yyyy-mm-dd"  id='Au'>
+                   </td>
+
+                 <td [hidden]='!isMarge'>
+                     <input (input)="prixA=$event.target.value" type="text" name="" id={{supplement.id}}{{i}} placeholder="PrixA">
+                 </td>
+                 <td [hidden]='!isMarge'>
+                  <input (input)="prixV=$event.target.value" type="text" name="" id={{supplement.id}}{{i}} placeholder="PourcentageM">
+                </td>
+                <td [hidden]='!isMarge'>
+                  <Label></Label>
+                 </td>
+                 <td [hidden]='!isRemise'>
+                  <input (input)="prixV=$event.target.value" type="text" name="" id={{supplement.id}}{{i}} placeholder="PrixV">
+                 </td>
+                 <td [hidden]='!isRemise'>
+                  <input (input)="prixV=$event.target.value" type="text" name="" id={{supplement.id}}{{i}} placeholder="PourcentageR">
+                 </td>
+                 <td [hidden]='!isRemise'>
+                  <Label></Label>
+                 </td>
+                   <td>
+                    <button type="button" class="btn btn-sm btn-success" (click)='onSelect(supplement , i)'>
+                      <span class="btn-label"></span>Ajouter</button>
+                   </td>
+                   </tbody>
+                 </table>
+                 </div>
+                 </td>
+                </tr>
+              </tbody>
+              </table>
+
+                  </td>
+                </tr>
+                <tr>
+                  <th>Specification</th>
+                  <td>
+                  <table>
+                  <thead class="table-primary">
+                    <th>ID</th>
+                    <th>Designation</th>
+                    <th>Definir le prix convenable a chaque periode du Contrat</th>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let specification of specification">
+                  <td class="table-primary text-center">{{specification.id}}</td>
+                  <td class="table-primarytext-center">{{specification.designation}}</td>
+                  <td>
+                  <div class="col-md-8">
+                  <table class="table table-bordered ">
+                   <thead class="table-primary">
+                     <td> Du</td>
+                     <td> Au</td>
+                     <td [hidden]='!isMarge'> Prix A </td>
+                     <td [hidden]='!isMarge'> Pourcentage Marge </td>
+                     <td [hidden]='!isMarge'> Prix </td>
+                     <td [hidden]='!isRemise'> Prix V </td>
+                     <td [hidden]='!isRemise'> Pourcentage Remise </td>
+                     <td [hidden]='!isRemise'> Prix </td>
+                     <td>Action</td>
+                   </thead>
+                   <tbody  *ngFor="let item of periodeArray ; let i=index">
+                   <td>
+                      <input (input)="DateD=$event.target.value" type='date' class="form-control-sm border-info rounded" placeholder="yyyy-mm-dd"  id='Du'>
+                   </td>
+                   <td>
+                       <input (input)="DateF=$event.target.value" type='date' class="form-control-sm border-info rounded" placeholder="yyyy-mm-dd"  id='Au'>
+                   </td>
+                   <td [hidden]='!isMarge'>
+                    <input (input)="prixA=$event.target.value" type="text" name="" id={{specification.id}}{{i}} placeholder="PrixA">
+                </td>
+                <td [hidden]='!isMarge'>
+                 <input (input)="prixV=$event.target.value" type="text" name="" id={{specification.id}}{{i}} placeholder="PourcentageM">
+               </td>
+               <td [hidden]='!isMarge'>
+                 <Label></Label>
+                </td>
+                <td [hidden]='!isRemise'>
+                 <input (input)="prixV=$event.target.value" type="text" name="" id={{specification.id}}{{i}} placeholder="PrixV">
+                </td>
+                <td [hidden]='!isRemise'>
+                 <input (input)="prixV=$event.target.value" type="text" name="" id={{specification.id}}{{i}} placeholder="PourcentageR">
+                </td>
+                <td [hidden]='!isRemise'>
+                 <Label></Label>
+                </td>
+                   <td>
+                    <button type="button" class="btn btn-sm btn-success" (click)='onSelect(specification , i)'>
+                      <span class="btn-label"></span>Ajouter</button>
+                   </td>
+                   </tbody>
+                 </table>
+                 </div>
+                 </td>
+                </tr>
+              </tbody>
+            </table>
+
+                  </td>
+                  </tr> -->
+                </tbody>
+              </table>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade"  id="nav-profile"
+            role="tabpanel"
+            aria-labelledby="nav-profile-tab">
+            <app-update-detail-hotel></app-update-detail-hotel>
+          </div>
+          <div  class="tab-pane fade"  id="nav-contact"
+            role="tabpanel"
+            aria-labelledby="nav-contact-tab">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="row">
+    <div class="offset-1 col-8">
+      <table class="table-bordered">
+        <thead>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+  </div>
+
+</section>
